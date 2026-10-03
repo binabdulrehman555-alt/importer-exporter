@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>TradeAI - Import Export Intelligence</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+color:#172033;
+}
+
+header{
+background:#092e66;
+color:white;
+padding:16px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:25px;
+font-weight:bold;
+}
+
+.logo span{
+color:#48a5ff;
+}
+
+nav button{
+background:transparent;
+padding:8px 12px;
+margin:2px;
+}
+
+.hero{
+background:linear-gradient(135deg,#06265a,#1477bb);
+color:white;
+padding:60px 6%;
+text-align:center;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:15px;
+}
+
+.hero p{
+max-width:800px;
+margin:auto;
+line-height:1.7;
+}
+
+.search{
+background:white;
+max-width:850px;
+margin:30px auto;
+padding:12px;
+border-radius:12px;
+display:flex;
+gap:10px;
+}
+
+.search input,
+.search select{
+flex:1;
+padding:14px;
+border:1px solid #ddd;
+border-radius:7px;
+}
+
+button{
+border:0;
+background:#0866c2;
+color:white;
+padding:12px 18px;
+border-radius:7px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#064d92;
+}
+
+.container{
+width:88%;
+max-width:1200px;
+margin:45px auto;
+}
+
+.title{
+text-align:center;
+margin-bottom:30px;
+}
+
+.title h2{
+color:#092e66;
+margin-bottom:8px;
+}
+
+.title p{
+color:#68758a;
+}
+
+.tools{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+}
+
+.tool{
+background:white;
+padding:23px;
+border-radius:14px;
+box-shadow:0 4px 18px rgba(0,0,0,.07);
+cursor:pointer;
+transition:.2s;
+}
+
+.tool:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 25px rgba(0,0,0,.12);
+}
+
+.tool .icon{
+font-size:32px;
+margin-bottom:12px;
+}
+
+.tool h3{
+color:#103d76;
+margin-bottom:8px;
+}
+
+.tool p{
+font-size:14px;
+color:#68758a;
+line-height:1.5;
+}
+
+.tool button{
+margin-top:15px;
+width:100%;
+}
+
+.section{
+display:none;
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 4px 18px rgba(0,0,0,.07);
+}
+
+.section.active{
+display:block;
+}
+
+.section h2{
+color:#092e66;
+margin-bottom:20px;
+}
+
+.form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.form input,
+.form select{
+width:100%;
+padding:13px;
+border:1px solid #ddd;
+border-radius:7px;
+}
+
+.form button{
+grid-column:1/-1;
+}
+
+.result{
+margin-top:20px;
+padding:20px;
+background:#eef6ff;
+border-left:4px solid #0866c2;
+border-radius:8px;
+line-height:1.8;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.mini{
+background:#f7f9fc;
+padding:20px;
+border-radius:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:13px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#092e66;
+color:white;
+}
+
+.back{
+margin-bottom:20px;
+background:#555;
+}
+
+footer{
+margin-top:60px;
+background:#071d3e;
+color:white;
+text-align:center;
+padding:35px;
+}
+
+@media(max-width:850px){
+
+.tools{
+grid-template-columns:1fr 1fr;
+}
+
+.form{
+grid-template-columns:1fr;
+}
+
+.cards{
+grid-template-columns:1fr;
+}
+
+nav{
+display:none;
+}
+
+.hero h1{
+font-size:31px;
+}
+
+}
+
+@media(max-width:500px){
+
+.tools{
+grid-template-columns:1fr;
+}
+
+.container{
+width:92%;
+}
+
+.search{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<header>
+
+<div class="logo">
+Trade<span>AI</span>
+</div>
+
+<nav>
+<button onclick="showHome()">Home</button>
+<button onclick="showTools()">Tools</button>
+<button onclick="showSection('assistant')">AI Assistant</button>
+</nav>
+
+</header>
+
+
+<section class="hero" id="home">
+
+<h1>AI Import & Export Intelligence</h1>
+
+<p>
+Find products, countries, demand, suppliers, buyers,
+shipping costs, HS codes, risks and estimated profit
+from one smart platform.
+</p>
+
+<div class="search">
+
+<input id="mainProduct"
+placeholder="Enter product e.g. Pan Leaves">
+
+<select id="mainCountry">
+
+<option>Pakistan</option>
+<option>China</option>
+<option>UAE</option>
+<option>Saudi Arabia</option>
+<option>United Kingdom</option>
+<option>USA</option>
+
+</select>
+
+<button onclick="startResearch()">
+Start Research
+</button>
+
+</div>
+
+<div id="mainResult"></div>
+
+</section>
+
+
+
+<div class="container" id="toolsArea">
+
+<div class="title">
+
+<h2>Smart Trade Tools</h2>
+
+<p>
+Click any tool to start your research.
+</p>
+
+</div>
+
+
+<div class="tools">
+
+
+<div class="tool"
+onclick="showSection('demand')">
+
+<div class="icon">🌍</div>
+
+<h3>Country Demand</h3>
+
+<p>
+Find countries where your product may have demand.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('opportunity')">
+
+<div class="icon">📦</div>
+
+<h3>Product Opportunity</h3>
+
+<p>
+Research which products may offer business opportunities.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('supply')">
+
+<div class="icon">📊</div>
+
+<h3>Demand & Supply</h3>
+
+<p>
+Compare market demand with available supply.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('profit')">
+
+<div class="icon">💰</div>
+
+<h3>Profit Calculator</h3>
+
+<p>
+Calculate estimated cost, revenue and profit.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('shipping')">
+
+<div class="icon">🚢</div>
+
+<h3>Shipping Estimator</h3>
+
+<p>
+Estimate shipping requirements and costs.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('hs')">
+
+<div class="icon">🧾</div>
+
+<h3>HS Code Research</h3>
+
+<p>
+Research the possible HS classification of a product.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('supplier')">
+
+<div class="icon">🏭</div>
+
+<h3>Supplier Finder</h3>
+
+<p>
+Research manufacturers and potential suppliers.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('buyer')">
+
+<div class="icon">🛒</div>
+
+<h3>Buyer / Market Finder</h3>
+
+<p>
+Research potential markets for your product.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('risk')">
+
+<div class="icon">⚠️</div>
+
+<h3>Risk Checker</h3>
+
+<p>
+Review possible trade risks and requirements.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('country')">
+
+<div class="icon">🗺️</div>
+
+<h3>Country Comparison</h3>
+
+<p>
+Compare multiple potential markets.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('documents')">
+
+<div class="icon">📑</div>
+
+<h3>Document Checklist</h3>
+
+<p>
+Create a basic import/export document checklist.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+
+<div class="tool"
+onclick="showSection('assistant')">
+
+<div class="icon">🤖</div>
+
+<h3>AI Business Assistant</h3>
+
+<p>
+Ask questions about your import/export idea.
+</p>
+
+<button>
+Open Tool
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- COUNTRY DEMAND -->
+
+<div class="container">
+
+<div class="section" id="demand">
+
+<button class="back" onclick="showTools()">
+← Back
+</button>
+
+<h2>🌍 Country Demand Finder</h2>
+
+<div class="form">
+
+<input id="demandProduct"
+placeholder="Product name">
+
+<select id="demandCountry">
+
+<option>UAE</option>
+<option>Saudi Arabia</option>
+<option>United Kingdom</option>
+<option>USA</option>
+<option>China</option>
+
+</select>
+
+<button onclick="demandResearch()">
+Analyze Demand
+</button>
+
+</div>
+
+<div id="demandResult"></div>
+
+</div>
+
+
+<!-- OPPORTUNITY -->
+
+<div class="section" id="opportunity">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>📦 Product Opportunity Finder</h2>
+
+<div class="form">
+
+<input id="oppBudget"
+placeholder="Your budget in PKR">
+
+<input id="oppProduct"
+placeholder="Product category">
+
+<button onclick="opportunityResearch()">
+Find Opportunities
+</button>
+
+</div>
+
+<div id="oppResult"></div>
+
+</div>
+
+
+<!-- SUPPLY -->
+
+<div class="section" id="supply">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>📊 Demand & Supply Analysis</h2>
+
+<div class="form">
+
+<input id="supplyProduct"
+placeholder="Product">
+
+<input id="supplyCountry"
+placeholder="Country">
+
+<button onclick="supplyResearch()">
+Analyze Market
+</button>
+
+</div>
+
+<div id="supplyResult"></div>
+
+</div>
+
+
+<!-- PROFIT -->
+
+<div class="section" id="profit">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>💰 Import Profit Calculator</h2>
+
+<div class="form">
+
+<input id="cost"
+type="number"
+placeholder="Product cost">
+
+<input id="shippingCost"
+type="number"
+placeholder="Shipping cost">
+
+<input id="customCost"
+type="number"
+placeholder="Customs / other cost">
+
+<input id="sellingPrice"
+type="number"
+placeholder="Expected selling price">
+
+<button onclick="calculateProfit()">
+Calculate
+</button>
+
+</div>
+
+<div id="profitResult"></div>
+
+</div>
+
+
+<!-- SHIPPING -->
+
+<div class="section" id="shipping">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>🚢 Shipping Estimator</h2>
+
+<div class="form">
+
+<input id="origin"
+placeholder="Origin country">
+
+<input id="destination"
+placeholder="Destination country">
+
+<input id="weight"
+type="number"
+placeholder="Weight in KG">
+
+<select id="shippingMode">
+
+<option>Air</option>
+<option>Sea</option>
+
+</select>
+
+<button onclick="shippingResearch()">
+Estimate
+</button>
+
+</div>
+
+<div id="shippingResult"></div>
+
+</div>
+
+
+<!-- HS -->
+
+<div class="section" id="hs">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>🧾 HS Code Research</h2>
+
+<div class="form">
+
+<input id="hsProduct"
+placeholder="Enter exact product name">
+
+<button onclick="hsResearch()">
+Research HS Code
+</button>
+
+</div>
+
+<div id="hsResult"></div>
+
+</div>
+
+
+<!-- SUPPLIER -->
+
+<div class="section" id="supplier">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>🏭 Supplier Finder</h2>
+
+<div class="form">
+
+<input id="supplierProduct"
+placeholder="Product">
+
+<input id="supplierCountry"
+placeholder="Supplier country">
+
+<button onclick="supplierResearch()">
+Find Suppliers
+</button>
+
+</div>
+
+<div id="supplierResult"></div>
+
+</div>
+
+
+<!-- BUYER -->
+
+<div class="section" id="buyer">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>🛒 Buyer / Market Finder</h2>
+
+<div class="form">
+
+<input id="buyerProduct"
+placeholder="Product">
+
+<input id="buyerCountry"
+placeholder="Target country">
+
+<button onclick="buyerResearch()">
+Find Market
+</button>
+
+</div>
+
+<div id="buyerResult"></div>
+
+</div>
+
+
+<!-- RISK -->
+
+<div class="section" id="risk">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>⚠️ Trade Risk Checker</h2>
+
+<div class="form">
+
+<input id="riskProduct"
+placeholder="Product">
+
+<input id="riskCountry"
+placeholder="Country">
+
+<button onclick="riskResearch()">
+Check Risk
+</button>
+
+</div>
+
+<div id="riskResult"></div>
+
+</div>
+
+
+<!-- COUNTRY -->
+
+<div class="section" id="country">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>🗺️ Country Comparison</h2>
+
+<table>
+
+<tr>
+<th>Country</th>
+<th>Demand</th>
+<th>Competition</th>
+<th>Shipping</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>UAE</td>
+<td>Research</td>
+<td>Medium</td>
+<td>Research</td>
+<td>Check data</td>
+</tr>
+
+<tr>
+<td>Saudi Arabia</td>
+<td>Research</td>
+<td>Medium</td>
+<td>Research</td>
+<td>Check data</td>
+</tr>
+
+<tr>
+<td>UK</td>
+<td>Research</td>
+<td>High</td>
+<td>Research</td>
+<td>Check data</td>
+</tr>
+
+<tr>
+<td>USA</td>
+<td>Research</td>
+<td>High</td>
+<td>Research</td>
+<td>Check data</td>
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- DOCUMENTS -->
+
+<div class="section" id="documents">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>📑 Document Checklist</h2>
+
+<div class="cards">
+
+<div class="mini">☐ Commercial Invoice</div>
+
+<div class="mini">☐ Packing List</div>
+
+<div class="mini">☐ Bill of Lading / AWB</div>
+
+<div class="mini">☐ Certificate of Origin</div>
+
+<div class="mini">☐ Customs Documentation</div>
+
+<div class="mini">☐ Product-specific certificates</div>
+
+</div>
+
+</div>
+
+
+<!-- AI -->
+
+<div class="section" id="assistant">
+
+<button class="back" onclick="showTools()">← Back</button>
+
+<h2>🤖 AI Business Assistant</h2>
+
+<div class="form">
+
+<input id="question"
+placeholder="Ask your import/export question">
+
+<button onclick="askAI()">
+Analyze Question
+</button>
+
+</div>
+
+<div id="aiResult"></div>
+
+</div>
+
+</div>
+
+
+
+<footer>
+
+<h2>TradeAI</h2>
+
+<p>
+AI-powered import & export research platform
+</p>
+
+<p>
+© 2026 TradeAI
+</p>
+
+</footer>
+
+
+
+<script>
+
+function hideSections(){
+
+document.querySelectorAll(".section").forEach(function(x){
+
+x.classList.remove("active");
+
+});
+
+}
+
+function showSection(id){
+
+hideSections();
+
+document.getElementById(id).classList.add("active");
+
+document.getElementById(id).scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+function showTools(){
+
+hideSections();
+
+document.getElementById("toolsArea").scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+function showHome(){
+
+hideSections();
+
+document.getElementById("home").scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+
+function startResearch(){
+
+let product=
+document.getElementById("mainProduct").value;
+
+let country=
+document.getElementById("mainCountry").value;
+
+if(product===""){
+
+alert("Please enter a product.");
+
+return;
+
+}
+
+document.getElementById("mainResult").innerHTML=`
+
+<div style="
+background:white;
+color:#172033;
+padding:20px;
+border-radius:10px;
+max-width:850px;
+margin:20px auto;
+">
+
+<h3>🔎 Research Started</h3>
+
+<p>Product: <b>${product}</b></p>
+
+<p>Country: <b>${country}</b></p>
+
+<p style="margin-top:10px;color:#68758a;">
+The full version will connect this research
+to real trade databases and AI services.
+</p>
+
+</div>
+
+`;
+
+}
+
+
+function demandResearch(){
+
+let p=document.getElementById("demandProduct").value;
+
+let c=document.getElementById("demandCountry").value;
+
+document.getElementById("demandResult").innerHTML=`
+
+<div class="result">
+
+<h3>🌍 Demand Research</h3>
+
+Product: <b>${p}</b><br>
+
+Country: <b>${c}</b><br><br>
+
+Demand level requires live trade-data verification.<br>
+
+The AI version will analyze import volume,
+market growth, competitors and local supply.
+
+</div>
+
+`;
+
+}
+
+
+function opportunityResearch(){
+
+let budget=document.getElementById("oppBudget").value;
+
+let product=document.getElementById("oppProduct").value;
+
+document.getElementById("oppResult").innerHTML=`
+
+<div class="result">
+
+<h3>📦 Opportunity Research</h3>
+
+Budget: <b>${budget} PKR</b><br>
+
+Category: <b>${product}</b><br><br>
+
+AI will compare product demand,
+competition, shipping cost, taxes and possible margins.
+
+</div>
+
+`;
+
+}
+
+
+function supplyResearch(){
+
+let p=document.getElementById("supplyProduct").value;
+
+let c=document.getElementById("supplyCountry").value;
+
+document.getElementById("supplyResult").innerHTML=`
+
+<div class="result">
+
+<h3>📊 Market Analysis</h3>
+
+Product: <b>${p}</b><br>
+
+Country: <b>${c}</b><br><br>
+
+Demand and supply data will be connected
+to live market sources in the advanced version.
+
+</div>
+
+`;
+
+}
+
+
+function calculateProfit(){
+
+let cost=Number(document.getElementById("cost").value)||0;
+
+let ship=Number(document.getElementById("shippingCost").value)||0;
+
+let custom=Number(document.getElementById("customCost").value)||0;
+
+let sell=Number(document.getElementById("sellingPrice").value)||0;
+
+let total=cost+ship+custom;
+
+let profit=sell-total;
+
+let margin=sell>0?(profit/sell)*100:0;
+
+document.getElementById("profitResult").innerHTML=`
+
+<div class="result">
+
+<h3>💰 Result</h3>
+
+Total Cost:
+<b>${total.toLocaleString()} PKR</b><br>
+
+Estimated Profit:
+<b>${profit.toLocaleString()} PKR</b><br>
+
+Profit Margin:
+<b>${margin.toFixed(2)}%</b>
+
+</div>
+
+`;
+
+}
+
+
+function shippingResearch(){
+
+let origin=document.getElementById("origin").value;
+
+let destination=document.getElementById("destination").value;
+
+let weight=document.getElementById("weight").value;
+
+let mode=document.getElementById("shippingMode").value;
+
+document.getElementById("shippingResult").innerHTML=`
+
+<div class="result">
+
+<h3>🚢 Shipping Research</h3>
+
+From: <b>${origin}</b><br>
+
+To: <b>${destination}</b><br>
+
+Weight: <b>${weight} KG</b><br>
+
+Mode: <b>${mode}</b><br><br>
+
+Actual shipping price requires current
+carrier/freight data.
+
+</div>
+
+`;
+
+}
+
+
+function hsResearch(){
+
+let p=document.getElementById("hsProduct").value;
+
+document.getElementById("hsResult").innerHTML=`
+
+<div class="result">
+
+<h3>🧾 HS Code Research</h3>
+
+Product: <b>${p}</b><br><br>
+
+HS classification depends on the exact
+product composition, use and specifications.
+
+The advanced version will connect to
+official tariff/customs data.
+
+</div>
+
+`;
+
+}
+
+
+function supplierResearch(){
+
+let p=document.getElementById("supplierProduct").value;
+
+let c=document.getElementById("supplierCountry").value;
+
+document.getElementById("supplierResult").innerHTML=`
+
+<div class="result">
+
+<h3>🏭 Supplier Research</h3>
+
+Product: <b>${p}</b><br>
+
+Country: <b>${c}</b><br><br>
+
+The advanced version will search verified
+supplier databases and compare suppliers.
+
+</div>
+
+`;
+
+}
+
+
+function buyerResearch(){
+
+let p=document.getElementById("buyerProduct").value;
+
+let c=document.getElementById("buyerCountry").value;
+
+document.getElementById("buyerResult").innerHTML=`
+
+<div class="result">
+
+<h3>🛒 Market Research</h3>
+
+Product: <b>${p}</b><br>
+
+Target Market: <b>${c}</b><br><br>
+
+The advanced AI will research potential
+buyers, market size and competitors.
+
+</div>
+
+`;
+
+}
+
+
+function riskResearch(){
+
+let p=document.getElementById("riskProduct").value;
+
+let c=document.getElementById("riskCountry").value;
+
+document.getElementById("riskResult").innerHTML=`
+
+<div class="result">
+
+<h3>⚠️ Risk Research</h3>
+
+Product: <b>${p}</b><br>
+
+Country: <b>${c}</b><br><br>
+
+Check import restrictions, permits,
+certificates, customs rules and product standards.
+
+</div>
+
+`;
+
+}
+
+
+function askAI(){
+
+let q=document.getElementById("question").value;
+
+if(q===""){
+
+alert("Please enter your question.");
+
+return;
+
+}
+
+document.getElementById("aiResult").innerHTML=`
+
+<div class="result">
+
+<h3>🤖 AI Analysis</h3>
+
+Your question:
+
+<b>${q}</b>
+
+<br><br>
+
+The advanced AI assistant will analyze
+your question using current trade and
+market information.
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
